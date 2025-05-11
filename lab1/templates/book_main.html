@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Бібліотека</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        input, button { margin: 5px 0; }
+        .section { margin-bottom: 30px; border-bottom: 1px solid #ccc; padding-bottom: 15px; }
+        pre { background: #f4f4f4; padding: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="section">
+        <h2>1. Отримати всі книги</h2>
+        <button onclick="getAllBooks()">Отримати</button>
+        <pre id="allBooksResult"></pre>
+    </div>
+
+    <div class="section">
+        <h2>2. Отримати книгу по ID</h2>
+        <input type="number" id="bookId" placeholder="ID книги" />
+        <button onclick="getBookById()">Отримати</button>
+        <pre id="bookByIdResult"></pre>
+    </div>
+
+    <div class="section">
+        <h2>3. Додати книгу</h2>
+        <input type="text" id="newTitle" placeholder="Назва книги" /><br>
+        <input type="text" id="newAuthor" placeholder="Автор" /><br>
+        <button onclick="addBook()">Додати</button>
+        <pre id="addBookResult"></pre>
+    </div>
+
+    <div class="section">
+        <h2>4. Видалити книгу</h2>
+        <input type="number" id="deleteBookId" placeholder="ID книги" />
+        <button onclick="deleteBook()">Видалити</button>
+        <pre id="deleteBookResult"></pre>
+    </div>
+
+    <script>
+        const baseUrl = '/books';
+
+        async function getAllBooks() {
+            const res = await fetch(baseUrl);
+            const data = await res.json();
+            document.getElementById('allBooksResult').textContent = JSON.stringify(data, null, 2);
+        }
+
+        async function getBookById() {
+            const id = document.getElementById('bookId').value;
+            const res = await fetch(`${baseUrl}/${id}`);
+            const data = await res.json();
+            document.getElementById('bookByIdResult').textContent = JSON.stringify(data, null, 2);
+        }
+
+        async function addBook() {
+            const title = document.getElementById('newTitle').value;
+            const author = document.getElementById('newAuthor').value;
+
+            const res = await fetch(baseUrl, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ title, author })
+            });
+            const data = await res.json();
+            document.getElementById('addBookResult').textContent = JSON.stringify(data, null, 2);
+        }
+
+        async function deleteBook() {
+            const id = document.getElementById('deleteBookId').value;
+            const res = await fetch(`${baseUrl}/${id}`, {
+                method: 'DELETE'
+            });
+            const data = await res.json();
+            document.getElementById('deleteBookResult').textContent = JSON.stringify(data, null, 2);
+        }
+    </script>
+</body>
+</html>

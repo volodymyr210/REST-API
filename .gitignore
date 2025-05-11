@@ -1,0 +1,8 @@
+# Ігнорування віртуального середовища
+env/
+venv/
+__pycache__/
+__pycache__/
+**/__pycache__/
+
+*$py.class  
