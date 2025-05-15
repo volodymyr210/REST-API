@@ -1,4 +1,3 @@
-
 from flask import Flask, jsonify, request, render_template
 from marshmallow import ValidationError
 from models import get_all_books, get_book_by_id, add_book, delete_book
