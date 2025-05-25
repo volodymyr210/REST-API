@@ -25,13 +25,15 @@
         <pre id="bookByIdResult"></pre>
     </div>
 
-    <div class="section">
-        <h2>3. Додати книгу</h2>
-        <input type="text" id="newTitle" placeholder="Назва книги" /><br>
-        <input type="text" id="newAuthor" placeholder="Автор" /><br>
-        <button onclick="addBook()">Додати</button>
-        <pre id="addBookResult"></pre>
-    </div>
+<div class="section">
+    <h2>3. Додати книгу</h2>
+    <input type="text" id="newTitle" placeholder="Назва книги" /><br>
+    <input type="text" id="newAuthor" placeholder="Автор" /><br>
+    <input type="number" id="newYear" placeholder="Рік видання" /><br>
+    <button onclick="addBook()">Додати</button>
+    <pre id="addBookResult"></pre>
+</div>
+
 
     <div class="section">
         <h2>4. Видалити книгу</h2>
@@ -57,17 +59,19 @@
         }
 
         async function addBook() {
-            const title = document.getElementById('newTitle').value;
-            const author = document.getElementById('newAuthor').value;
+    const title = document.getElementById('newTitle').value;
+    const author = document.getElementById('newAuthor').value;
+    const year = parseInt(document.getElementById('newYear').value);
 
-            const res = await fetch(baseUrl, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ title, author })
-            });
-            const data = await res.json();
-            document.getElementById('addBookResult').textContent = JSON.stringify(data, null, 2);
-        }
+    const res = await fetch(baseUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, author, year })
+    });
+    const data = await res.json();
+    document.getElementById('addBookResult').textContent = JSON.stringify(data, null, 2);
+}
+
 
         async function deleteBook() {
             const id = document.getElementById('deleteBookId').value;
