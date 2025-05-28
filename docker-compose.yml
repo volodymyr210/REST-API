@@ -15,16 +15,18 @@ services:
 
   api:
     build: .
-    command: uvicorn app:app --host 0.0.0.0 --port 8000 --reload
+    command: flask run --host=0.0.0.0 --port=5000
     volumes:
-       - ./lab5:/app
-    ports:
-      - "8000:8000"
+      - ./lab6:/app
+    working_dir: /app
     depends_on:
       - mongo_db
     environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=development
       - MONGODB_URL=mongodb://mongo_admin:password@mongo_db:27017/books?authSource=admin
-
+    ports:
+      - "5000:5000"
 
 volumes:
   mongo_data:
