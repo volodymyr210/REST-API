@@ -10,7 +10,7 @@ class BookDB(BookSchema):
     id: ObjectIdField = Field(alias="_id")
 
     class Config:
-        allow_population_by_field_name = True  # щоб можна було ініціалізувати з _id
+        allow_population_by_field_name = True 
         json_encoders = {
-            ObjectIdField: str  # Конвертація ObjectId у рядок при серіалізації
+            ObjectIdField: str  
         }
