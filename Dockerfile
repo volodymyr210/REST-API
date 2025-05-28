@@ -1,10 +1,13 @@
-FROM python:3.10
+FROM python:3.11-slim
 
 WORKDIR /app
+COPY ./lab5 /app
 
-COPY requirements.txt .        
+
+COPY requirements.txt .
+
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY lab1/ .                   
+COPY . .
 
-CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
+CMD ["uvicorn", "lab5.app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
